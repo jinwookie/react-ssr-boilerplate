@@ -1,0 +1,31 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      }
+    }],
+    "@babel/react",
+    "@babel/stage-3"
+  ],
+  "plugins": [
+    "react-hot-loader/babel"
+
+  ],
+  "env": {
+    "server": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "current"
+          }
+        }],
+        "@babel/react",
+        "@babel/stage-3"
+      ],
+      "plugins": [
+        "dynamic-import-node"
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    if (bundles['main.css'])
+      link(rel="stylesheet" type="text/css" href=bundles['main.css'])
+    title= title
+  body
+    div#root !{html}
+    script.
+      window.__INITIAL_STATE__ = !{JSON.stringify(initialState).replace(/</g, '\\u003c')}
+    script(src=bundles['vendors.js'])
+    script(src=bundles['main.js'])
