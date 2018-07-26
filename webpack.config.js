@@ -61,7 +61,7 @@ if (!DEV) {
 
   optimization.splitChunks.cacheGroups.styles = {
     name: 'styles',
-    test: /\.scss$/,
+    test: /\.s?css$/,
     chunks: 'all',
     enforce: true
   };

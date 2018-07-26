@@ -47,14 +47,14 @@
   "scripts": {
     "clean": "rm -rf dist & rm -rf build",
     "start": "yarn run server:prod",
-    "server:prod": "NODE_ENV=production node ./src/server/App.js",
+    "server:prod": "NODE_ENV=production node ./build/server.js",
     "server:build": "NODE_ENV=production BABEL_ENV=server webpack --config webpack.server.config.js",
     "server:dev:build": "NODE_ENV=development BABEL_ENV=server webpack --config webpack.server.config.js",
     "server:dev:run": "NODE_ENV=development nodemon ./build/server.js",
     "server:dev": "concurrently --kill-others \"yarn run server:dev:build\" \"yarn run server:dev:run\"",
     "client:dev": "NODE_ENV=development webpack-dev-server",
     "client:build": "NODE_ENV=production webpack",
-    "build": "concurrently --kill-others \"yarn run server:build\" \"yarn run client:build\"",
+    "build": "yarn run server:build & yarn run client:build",
     "dev": "concurrently --kill-others \"yarn run server:dev\" \"yarn run client:dev\""
   }
 }

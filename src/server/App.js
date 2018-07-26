@@ -27,7 +27,7 @@ const getHtml = ({ files, html, initialState, title }) => `
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      ${ files['main.css'] ? `<link rel="stylesheet" type="text/css" href="${files['main.css']}` : '' }
+      ${ files['styles.css'] ? `<link rel="stylesheet" type="text/css" href="${files['styles.css']}" />` : '' }
       <title>${title}</title>
     </head>
     <body>
@@ -37,6 +37,7 @@ const getHtml = ({ files, html, initialState, title }) => `
       </script>
       <script src="${files['vendors.js']}"></script>
       <script src="${files['main.js']}"></script>
+      ${files['styles.js'] ? `<script src="${files['styles.js']}"></script>` : ''}
     </body>
   </html>
 `;
@@ -47,7 +48,8 @@ app.get('*', async (req, res) => {
   const files = {
     ['vendors.js']: `${basePath}/vendors.js`,
     ['main.js']: `${basePath}/main.js`,
-    ['main.css']: !DEV && `${basePath}/main.css`,
+    ['styles.css']: !DEV && `${basePath}/styles.css`,
+    ['styles.js']: !DEV && `${basePath}/styles.js`,
   };
 
   const context = { };
