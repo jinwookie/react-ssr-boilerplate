@@ -11,9 +11,6 @@ const routes = require('../client/routes/Routes').default;
 const ensureReady = require('../ssr/ensureReady').default;
 
 const app = express();
-
-// app.set('view engine', 'pug');
-// app.set('views', './src/server/views');
 app.use(compression());
 
 app.use('/dist', express.static('dist'));
