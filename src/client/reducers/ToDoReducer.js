@@ -10,6 +10,10 @@ const initialState = {
 
 const reducer = (state = fromJS(initialState), action) => {
   switch (action.type) {
+    case C.INIT:
+      return state.merge({
+        todos: action.payload
+      });
     case C.ADD:
       return state.merge({
         todos: state.get('todos').push({ todo: action.payload, completed: false })

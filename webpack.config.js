@@ -6,15 +6,16 @@ const {
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const DEV = process.env.NODE_ENV !== 'production';
 const publicPath = DEV ? 'http://localhost:8080/dist/' : '/dist/';
-const filename = '[name].js'; //DEV ? '[name].js' : '[name].[hash].js';
+const filename = DEV ? '[name].js' : '[name].[contenthash].js';
 
 const optimization = {
   splitChunks: {
     chunks: 'async',
-    minSize: 1000,
+    minSize: 30000,
     minChunks: 1,
     maxAsyncRequests: 5,
     maxInitialRequests: 3,
@@ -124,8 +125,9 @@ module.exports = {
       [] :
       [
         new MiniCssExtractPlugin({
-          filename: "[name].css"
-        })
+          filename: DEV ? '[name].css' : '[name].[contenthash].css'
+        }),
+        new ManifestPlugin(),
       ]
     )
   ],
@@ -140,20 +142,6 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': 'true'
-    }
-  },
-  serve: {
-    content: '/dist/',
-    hot: true,
-    open: {
-      app: 'Chrome',
     },
-    dev: {
-      publicPath,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true'
-      },
-    }
   },
 };

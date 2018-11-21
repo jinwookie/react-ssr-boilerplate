@@ -41,13 +41,17 @@ const getHtml = ({ files, html, initialState, title }) => `
 
 app.get('*', async (req, res) => {
   const DEV = process.env.NODE_ENV !== 'production';
-  const basePath = DEV ? 'http://localhost:8080/dist' : '/dist';
-  const files = {
+  const basePath = 'http://localhost:8080/dist';
+  let files = {
     ['vendors.js']: `${basePath}/vendors.js`,
     ['main.js']: `${basePath}/main.js`,
     ['styles.css']: !DEV && `${basePath}/styles.css`,
     ['styles.js']: !DEV && `${basePath}/styles.js`,
   };
+
+  if (!DEV) {
+    files = await import('../../dist/manifest.json').then(mod => mod.default);
+  }
 
   const context = { };
   const store = createAppStore();

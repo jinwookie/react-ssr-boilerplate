@@ -5,11 +5,13 @@
         "browsers": ["last 2 versions", "safari >= 7"]
       }
     }],
-    "@babel/react",
-    "@babel/stage-3"
+    "@babel/react"
   ],
   "plugins": [
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
 
   ],
   "env": {
@@ -20,10 +22,12 @@
             "node": "current"
           }
         }],
-        "@babel/react",
-        "@babel/stage-3"
+        "@babel/react"
       ],
       "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread",
         "dynamic-import-node"
       ]
     }
