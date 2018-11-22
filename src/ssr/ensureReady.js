@@ -1,15 +1,17 @@
 import { matchRoutes } from 'react-router-config';
 
-const loadComponent = async match => {
-  const { component } = match.route;
-    if (component && component.load) {
-      const loadedComponent = await component.load();
-      return {
-        component: loadedComponent,
-        match
-      }
+const loadComponent = async found => {
+  const { route, match } = found;
+  const { component } = route;
+  if (component && component.load) {
+    const loadedComponent = await component.load();
+    return {
+      route,
+      component: loadedComponent,
+      match,
     }
-    return undefined;
+  }
+  return undefined;
 };
 
 const ensureReady = (routeConfig, pathname) => {

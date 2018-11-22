@@ -3,8 +3,7 @@ const express = require('express');
 const compression = require('compression');
 const { renderToString } = require('react-dom/server');
 const { Provider } = require('react-redux');
-const { StaticRouter: Router } = require('react-router-dom');
-const { matchRoutes } = require('react-router-config');
+const { StaticRouter } = require('react-router-dom');
 const createAppStore = require('../client/createAppStore').default;
 const App = require('../client/App').default;
 const routes = require('../client/routes/Routes').default;
@@ -58,9 +57,9 @@ app.get('*', async (req, res) => {
 
   const matches = await ensureReady(routes, req.path);
   if (matches && matches.length > 0) {
-    await Promise.all(matches.map(match => {
-      if (match.component.loadData) {
-        return store.dispatch(match.component.loadData(match.match.match.params, true));
+    await Promise.all(matches.map(found => {
+      if (found.component.loadData) {
+        return store.dispatch(found.component.loadData(found.match.params, req.query, true));
       }
     }));
   }
@@ -69,9 +68,9 @@ app.get('*', async (req, res) => {
 
   const html = renderToString(
     <Provider store={store}>
-      <Router location={req.url} context={context}>
+      <StaticRouter location={req.url} context={context}>
         <App />
-      </Router>
+      </StaticRouter>
     </Provider>
   );
 

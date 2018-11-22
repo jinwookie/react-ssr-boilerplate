@@ -4,8 +4,8 @@ import { loadData, update } from 'actions/ToDoActions';
 import { toDoSelector } from 'reducers/ToDoReducer';
 
 class ToDoContainer extends React.Component {
-  static loadData(params, ssr) {
-    return loadData(params, ssr);
+  static loadData(params, query, ssr) {
+    return loadData(params, query, ssr);
   }
 
   componentDidMount() {

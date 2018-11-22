@@ -22,8 +22,8 @@ export const remove = index => ({ type: C.REMOVE, payload: index });
 export const update = (todo, completed, index) => ({ type: C.UPDATE, payload: { todo, completed, index } });
 export const clear = () => ({ type: C.CLEAR });
 
-export const loadData = (params, ssr) => dispatch => {
-  dispatch(init('TEST TODO'));
+export const loadData = (params, query, ssr) => dispatch => {
+  dispatch(init());
   if (ssr) {
     dispatch({ type: C.LOADED });
   }
